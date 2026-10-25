@@ -1,0 +1,13 @@
+[Unit]
+Description={{description}}
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/podman run --replace --name={{container_name}} --env-file={{env_path}} --network=slirp4netns {{mount}} {{port}} docker.io/{{image}}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
